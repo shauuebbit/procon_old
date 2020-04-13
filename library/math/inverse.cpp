@@ -1,9 +1,9 @@
 #include<utility>
 
-const int mod = 1'000'000'007;
+constexpr int mod = 1'000'000'007;
 
 template<typename T>
-T inverse(T a, T m){
+constexpr T inverse(T a, T m){
   T u = 0, v = 1;
 
   while(a){
@@ -19,7 +19,7 @@ T inverse(T a, T m){
 }
 
 template<typename T>
-T inverse(T a){
+constexpr T inverse(T a){
   return inverse(a, mod);
 }
 
