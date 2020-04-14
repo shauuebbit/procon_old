@@ -9,7 +9,7 @@ public:
 
   constexpr ModInt(const ModInt& x) : number(x.number){};
 
-  constexpr ModInt(const long long number = 0) : number(number % mod){}
+  constexpr ModInt(const long long number = 0) : number((mod + number) % mod){}
 
   constexpr long long get() const{
     return number;
@@ -109,8 +109,8 @@ constexpr ModInt operator/(const ModInt& lhs, const ModInt&rhs){
   return ModInt(lhs) /= rhs;
 }
 
-constexpr ModInt operator^(const ModInt& lhs, const ModInt& rhs){
-  long long b = lhs.get(), e = rhs.get(), y = 1, mod = lhs.mod;
+constexpr ModInt operator^(const ModInt& lhs, const int& rhs){
+  long long b = lhs.get(), e = rhs, y = 1, mod = lhs.mod;
   bool inv = e < 0;
   if(inv) e = -e;
 
@@ -144,12 +144,12 @@ int main(){
   ModInt b;
   cin >> b;
   cout << "a = " << a << ", -a = " << -a << endl;
-  cout << "b = " << b << ", b^(-1)" << b.inverse() << endl;
+  cout << "b = " << b << ", b^(-1) = " << b.inverse() << endl;
   cout << "a + b = " << (a + b) << endl;
   cout << "a - b = " << (a - b) << endl;
   cout << "a * b = " << (a * b) << endl;
   cout << "a / b = " << (a / b) << endl;
-  cout << "a ^ b = " << (a ^ b) << endl;
+  cout << "a ^ b = " << (a ^ 3) << endl;
   cout << "a++: " << a++ << ", ++a: " << ++a << endl;
   cout << "--b: " << --b << endl;
   cout << "a = b: " << (a = b) << ", a = 876567: " << (a = 876567) << endl;
