@@ -80,13 +80,13 @@ public:
     return *this -= 1;
   }
 
-  constexpr ModInt operator++(int x){
+  constexpr ModInt operator++(int){
     ModInt ret = *this;
     ++(*this);
     return ret;
   }
 
-  constexpr ModInt operator--(int x){
+  constexpr ModInt operator--(int){
     ModInt ret = *this;
     --(*this);
     return ret;
