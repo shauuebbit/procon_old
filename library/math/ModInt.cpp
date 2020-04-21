@@ -5,7 +5,7 @@ private:
   long long number;
 
 public:
-  static constexpr long long mod = 1'000'000'007;
+  static constexpr long long mod = 1000000007;
 
   constexpr ModInt(const ModInt& x) : number(x.number){};
 
