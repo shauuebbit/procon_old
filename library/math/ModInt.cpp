@@ -61,7 +61,7 @@ public:
       //swap a, m
       a ^= m;
       m ^= a;
-      a ^=m;
+      a ^= m;
 
       //swap u, v
       u ^= v;
