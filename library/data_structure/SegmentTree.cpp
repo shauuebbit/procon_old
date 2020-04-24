@@ -1,6 +1,7 @@
+#include<functional>
 #include<vector>
 
-template<class M, class F>
+template<class M, class F = std::function<M(M, M)>>
 class SegmentTree{
 private:
   std::vector<M> data;
