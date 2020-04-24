@@ -1,39 +1,72 @@
-#include<algorithm>
+#include<vector>
 
-struct SegmentTree{
+template<class M, class F>
+class SegmentTree{
 private:
-  const int MAX = 1'000'000'000;
-
-  int n;
-  int* data;
+  std::vector<M> data;
+  F op;
+  M e;
+  int length;
 
 public:
-  SegmentTree(int n) : n(n){
-    int d = 0;
-    while(n >>= 1) d++;
-    n = 1 << d;
-    data = new int[n];
-    for(int i = 0; i < n; i++) data[i] = MAX;
+  SegmentTree(int n, const F op, const M& e) : op(op), e(e){
+    length = 1;
+    while(length < n) length <<= 1;
+    data = std::vector<M>((length << 1) - 1, e);
   }
 
-  void update(int index, int x){
-    index += n - 1;
+  void update(int index, const M& x){
+    index += length - 1;
     data[index] = x;
+
     while(index){
-      index = (index - 1) >> 1;
-      data[index] = std::min(data[(index << 1) + 1], data[(index << 1) + 2]);
+      (--index) >>= 1;
+      data[index] = op(data[(index << 1) + 1], data[(index << 1) + 2]);
     }
   }
 
-  int query(int a, int b, int k, int l, int r){
-    if(r <= a || b <= l) return MAX;
-    if(a <= l && r <= b) return data[k];
-    int vl = query(a, b, (k << 1) + 1, l, (l + r) >> 1);
-    int vr = query(a, b, (k << 1) + 2, (l + r) >> 1, r);
-    return std::min(vl, vr);
+  M query(int left, int right){
+    M l = e, r = e;
+
+    for(left += length - 1, right += length - 1; left < right; (--left) >>= 1, (--right) >>= 1){
+      if((left ^ 1) & 1) l = op(data[left++], l);
+      if((right ^ 1) & 1) r = op(data[--right], r);
+    }
+
+    return op(l, r);
   }
 };
 
-int main(){
-}
 
+#include<algorithm>
+#include<functional>
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+const int INF = 1e9 + 7;
+
+int main(){
+  int n;
+  cin >> n;
+  SegmentTree<int, std::function<int(int, int)>> segTree(n, [](int a, int b){return min(a, b);}, INF);
+
+  while(true){
+    int q;
+    cin >> q;
+
+    if(q == 0) break;
+    else if(q == 1){
+      int i, x;
+      cin >> i >> x;
+      segTree.update(i, x);
+    }else if(q == 2){
+      int l, r;
+      cin >> l >> r;
+      cout << segTree.query(l, r) << endl;
+    }
+  }
+
+  return 0;
+}
