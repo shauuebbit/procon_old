@@ -6,7 +6,6 @@ constexpr long long power(long long b, long long e, long long mod){
     if(e & 1){
       ret *= b;
       ret %= mod;
-      e--;
     }
 
     b *= b;
