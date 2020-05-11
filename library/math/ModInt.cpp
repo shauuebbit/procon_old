@@ -59,14 +59,10 @@ public:
       u -= t * v;
 
       //swap a, m
-      a ^= m;
-      m ^= a;
-      a ^= m;
+      a ^= m; m ^= a; a ^= m;
 
       //swap u, v
-      u ^= v;
-      v ^= u;
-      u ^= v;
+      u ^= v; v ^= u; u ^= v;
     }
 
     return ModInt(u);
