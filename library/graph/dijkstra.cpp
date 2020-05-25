@@ -2,7 +2,7 @@
 #include<vector>
 
 template<typename T>
-std::vector<T> dijkstra(int src, const std::vector<T>& graph){
+std::vector<T> dijkstra(int src, const std::vector<std::vector<T>>& graph){
   std::vector<T> distance(graph.size(), -1);
   std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>, std::greater<std::pair<T, int>>> pq;
 
