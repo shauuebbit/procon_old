@@ -11,7 +11,7 @@ public:
     else return factorial[n] * (factorial_inverse[k] * factorial_inverse[n - k] % mod) % mod;
   }
 
-  BinomialCoefficients(int max = 1'000'000, int mod = 1'000'000'007) : max(max), mod(mod){
+  BinomialCoefficients(int max = 1000000, int mod = 1000000007) : max(max), mod(mod){
     factorial = new long long[max + 1];
     factorial_inverse = new long long[max + 1];
     inverse = new long long[max + 1];
