@@ -16,7 +16,7 @@ public:
     data = std::vector<M>((length << 1) - 1, e);
   }
 
-  void set(int index, const M& x){
+  void update(int index, const M& x){
     index += length - 1;
     data[index] = x;
 
@@ -26,7 +26,7 @@ public:
     }
   }
 
-  M get(int left, int right){
+  M query(int left, int right){
     M l = e, r = e;
 
     for(left += length - 1, right += length - 1; left < right; (--left) >>= 1, (--right) >>= 1){
