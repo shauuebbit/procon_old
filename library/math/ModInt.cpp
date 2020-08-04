@@ -105,7 +105,7 @@ constexpr ModInt operator/(const ModInt& lhs, const ModInt&rhs){
   return ModInt(lhs) /= rhs;
 }
 
-constexpr ModInt operator^(const ModInt& lhs, const int& rhs){
+constexpr ModInt operator^(const ModInt& lhs, const long long& rhs){
   long long b = lhs.get(), e = rhs, y = 1, mod = lhs.mod;
   bool inv = e < 0;
   if(inv) e = -e;
