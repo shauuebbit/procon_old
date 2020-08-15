@@ -28,6 +28,22 @@ public:
     }
     return x;
   }
+  
+  int lower_bound(T x){
+    if(x <= 0) return 0;
+    
+    int index = 0, b = 1;
+    while((b << 1) <= N) b <<= 1;
+    
+    while(b){
+      if(index + b <= N && data[index + b] < x){
+        x -= data[index + b];
+        index += b;
+      }
+      b >>= 1;
+    }
+    return index + 1;
+  }
 
   ~BinaryIndexedTree(){
     delete [] data;
