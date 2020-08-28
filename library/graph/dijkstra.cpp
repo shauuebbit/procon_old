@@ -3,7 +3,7 @@
 
 template<typename T>
 std::vector<T> dijkstra(int src, const std::vector<std::vector<std::pair<T, int>>>& graph){
-  const T INF = 10000000000000000ll;
+  const T INF = std::numeric_limits<T>::max();
   std::vector<T> distance(graph.size(), INF);
   std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>, std::greater<std::pair<T, int>>> pq;
 
