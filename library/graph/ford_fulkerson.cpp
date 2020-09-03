@@ -43,7 +43,7 @@ T ford_fulkerson(int src, int dst, std::vector<std::vector<Edge<T>>> graph){
 
 int main(){
   int n = 100;
-  std::vector<std::vector<Edge<int>>> graph(n);
+  std::vector<std::vector<Edge<int>>> graph(n, std::vector<Edge<int>>(n));
   ford_fulkerson<int>(0, 0, graph);
 
   return 0;
