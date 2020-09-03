@@ -1,10 +1,9 @@
 #include<functional>
-#include<vector>
 
 template<class M, class F = std::function<M(M, M)>>
 class SegmentTree{
 private:
-  std::vector<M> data;
+  M* data;
   F op;
   M e;
   int length;
@@ -13,36 +12,38 @@ public:
   SegmentTree(int n, const F op, const M& e) : op(op), e(e){
     length = 1;
     while(length < n) length <<= 1;
-    data = std::vector<M>((length << 1) - 1, e);
+    data = new M[length << 1];
+    for(int i = 0; i < (length << 1); i++) data[i] = e;
   }
 
   void update(int index, const M& x){
-    index += length - 1;
+    index += length;
     data[index] = x;
 
-    while(index){
-      (--index) >>= 1;
-      data[index] = op(data[(index << 1) + 1], data[(index << 1) + 2]);
+    while(index >>= 1){
+      data[index] = op(data[index << 1], data[(index << 1) | 1]);
     }
   }
 
   M query(int left, int right){
     M l = e, r = e;
 
-    for(left += length - 1, right += length - 1; left < right; (--left) >>= 1, (--right) >>= 1){
-      if(!(left & 1)) l = op(data[left++], l);
-      if(!(right & 1)) r = op(data[--right], r);
+    for(left += length, right += length; left < right; left >>= 1, right >>= 1){
+      if(left & 1) l = op(data[left++], l);
+      if(right & 1) r = op(data[--right], r);
     }
 
     return op(l, r);
+  }
+
+  ~SegmentTree(){
+    delete[] data;
   }
 };
 
 
 #include<algorithm>
-#include<functional>
 #include<iostream>
-#include<vector>
 
 using namespace std;
 
@@ -51,7 +52,13 @@ const int INF = 1e9 + 7;
 int main(){
   int n;
   cin >> n;
-  SegmentTree<int, std::function<int(int, int)>> segTree(n, [](int a, int b){return min(a, b);}, INF);
+
+//  SegmentTree<int> segTree(n, [](int a, int b){return min(a, b);}, INF);
+//  SegmentTree<int, std::function<int(int, int)>> segTree(n, [](int a, int b){return min(a, b);}, INF);
+  auto f = [](int a, int b){
+    return min(a, b);
+  };
+  SegmentTree<int, decltype(f)> segTree(n, f, INF);
 
   while(true){
     int q;
@@ -71,3 +78,4 @@ int main(){
 
   return 0;
 }
+
