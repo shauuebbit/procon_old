@@ -9,6 +9,8 @@ private:
     Node* parent;
     Node* left_child;
     Node* right_child;
+
+    Node(T value) : value(value), height(0), sub_size(1), parent(nullptr), left_child(nullptr), right_child(nullptr){}
   };
 
   Node* base;
@@ -16,7 +18,9 @@ private:
   int sz;
 
   Node* createNode(T d, Node* parent){
-    return new Node{d, 0, 1, parent, base, base};
+    Node* ret = new Node(d);
+    ret->parent = parent; ret->left_child = base; ret->right_child = base;
+    return ret;
   }
 
   int getHeight(Node* v){return (v->left_child->height < v->right_child->height ? v->right_child->height : v->left_child->height) + 1;}
@@ -99,7 +103,7 @@ private:
 
 public:
   AVLTree() : sz(0){
-    base = new Node{0, -1, 0};
+    base = new Node(0);
     base->parent = base; base->left_child = base; base->right_child = base;
   }
 
@@ -121,18 +125,21 @@ public:
 
     for(; current != base; current = (d < current->value ? current->left_child : current->right_child)){
       if(d == current->value){
+        Node* changedNode;
         if(current->right_child == base){
           (current->parent->right_child == current ? current->parent->right_child : current->parent->left_child) = current->left_child;
           current->left_child->parent = current->parent;
+          changedNode = current->parent;
           delete current;
         }else{
           Node* right_min = minNode(current->right_child);
           current->value = right_min->value;
           (right_min->parent == current ? current->right_child : right_min->parent->left_child) = right_min->right_child; right_min->right_child->parent = right_min->parent;
+          changedNode = right_min->parent;
           delete right_min;
         }
 
-        balance(current);
+        balance(changedNode);
         --sz;
         return true;
       }
@@ -183,7 +190,17 @@ using namespace std;
 int main(){
   AVLTree<int> tree;
 
+/*
+  int n = 10000;
+  for(int i = 0; i < n; i++){
+    if(i & 1) tree.insert(i);
+    else tree.insert(-i);
+  }
+*/
+
+  cout << "input" << endl;
   while(true){
+    cout << "min: " << tree.getMin() << ", max: " << tree.getMax() << ", size: " << tree.size() << endl;
     int q;
     cin >> q;
 
