@@ -13,7 +13,7 @@ private:
 
   Node* base;
 
-  size_t sz;
+  int sz;
 
   Node* createNode(T d, Node* parent){
     return new Node{d, 0, 1, parent, base, base};
@@ -44,7 +44,7 @@ private:
   }
 
   Node* findNodeByOrder(int ord){
-    if(ord < 0 || ord >= sz) return base;
+    if(ord < 0 || ord >= (int)sz) return base;
 
     Node* current = base->right_child;
     for(; current != base; current = (current->left_child->sub_size > ord ? current->left_child : current->right_child)) if(current->left_child->sub_size == ord) return current;
@@ -86,7 +86,6 @@ private:
         v = rotateLeft(v);
       }else reviseNode(v);
 
-      if(h == getHeight(v)) return;
       v = v->parent;
     }
   }
@@ -135,7 +134,7 @@ public:
   }
 
   bool empty(){return base->right_child == base;}
-  size_t size(){return sz;}
+  int size(){return sz;}
 
   T getMin(){return minNode(base->right_child)->value;}
   T getMax(){return maxNode(base->right_child)->value;}
