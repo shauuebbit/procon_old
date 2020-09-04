@@ -104,7 +104,7 @@ private:
 public:
   AVLTree() : sz(0){
     base = new Node(0);
-    base->parent = base; base->left_child = base; base->right_child = base;
+    base->height = -1; base->sub_size = 0; base->parent = base; base->left_child = base; base->right_child = base;
   }
 
   bool insert(T d){
