@@ -47,7 +47,15 @@ private:
     if(ord < 0 || ord >= (int)sz) return base;
 
     Node* current = base->right_child;
-    for(; current != base; current = (current->left_child->sub_size > ord ? current->left_child : current->right_child)) if(current->left_child->sub_size == ord) return current;
+    while(current != base){
+      if(current->left_child->sub_size == ord) return current;
+      else if(current->left_child->sub_size > ord) current = current->left_child;
+      else{
+        ord -= current->left_child->sub_size + 1;
+        current = current->right_child;
+      }
+    }
+
     return base;
   }
 
@@ -77,7 +85,6 @@ private:
 
   void balance(Node* v){
     while(v != base){
-      int h = v->height;
       if(bias(v) == 2){
         if(bias(v->left_child) == -1) rotateLeft(v->left_child);
         v = rotateRight(v);
