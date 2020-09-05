@@ -93,7 +93,7 @@ private:
         if(bias(v->left_child) == -1) rotateLeft(v->left_child);
         v = rotateRight(v);
       }else if(bias(v) == -2){
-        if(bias(v->left_child) == 1) rotateRight(v->right_child);
+        if(bias(v->right_child) == 1) rotateRight(v->right_child);
         v = rotateLeft(v);
       }else reviseNode(v);
 
