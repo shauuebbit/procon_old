@@ -1,9 +1,10 @@
-constexpr long long mod = 1'000'000'007;
+constexpr int mod = 1000000007;
 
-constexpr long long power(long long b, long long e, long long mod){
-  long long ret = 1;
-  while(e){
-    if(e & 1){
+template <typename T, typename U, typename V>
+constexpr T power(T b, U e, V mod) {
+  T ret = 1;
+  while (e) {
+    if (e & 1) {
       ret *= b;
       ret %= mod;
     }
@@ -16,12 +17,13 @@ constexpr long long power(long long b, long long e, long long mod){
   return ret;
 }
 
-constexpr long long power(long long b, long long e){
+template <typename T, typename U>
+constexpr T power(T b, U e) {
   return power(b, e, mod);
 }
 
 
-#include<iostream>
-int main(){
-  std::cout<<power(3,4)<<' '<<power(3,5)<<std::endl;
+#include <iostream>
+int main() {
+  std::cout << power(3, 4) << ' ' << power(3, 5) << std::endl;
 }

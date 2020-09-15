@@ -1,13 +1,11 @@
-template<typename T, typename U>
-T gcd(T a, U b){
-  if(a < b){
-    a ^= b;
-    b ^= a;
-    a ^= b;
+template <typename T, typename U>
+constexpr T gcd(T a, U b) {
+  if (a < b) {
+    a ^= b; b ^= a; a ^= b;
   }
-
+  
   T r;
-  while(b){
+  while (b) {
     r = a % b;
     a = b;
     b = r;
@@ -16,8 +14,10 @@ T gcd(T a, U b){
   return a;
 }
 
-#include<iostream>
-int main(){
+#include <iostream>
+int main() {
+  std::cout << gcd(12, 18) << std::endl;
+  std::cout << gcd(2, 0) << std::endl;
   long long a;
   std::cin >> a;
   int b;

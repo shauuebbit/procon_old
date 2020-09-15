@@ -1,28 +1,33 @@
-#include<utility>
+#include <utility>
 
-constexpr int mod = 1'000'000'007;
+constexpr int mod = 1000000007;
 
-template<typename T>
-constexpr T inverse(T a, T m){
-  T u = 0, v = 1;
+template <typename T, typename U>
+constexpr T inverse(T a, U m) {
+  T b = (T)m, u = 0, v = 1;
 
-  while(a){
-    T t = m / a;
-    m -= t * a; std::swap(a, m);
-    u -= t * v; std::swap(u, v);
+  while (a) {
+    T t = b / a;
+    b -= t * a;
+    a += b; b = a - b; a -= b;
+    u -= t * v;
+    u += v; v = u - v; u -= v;
   }
   
-  u %= mod;
-  if(u < 0) u += mod;
+  u %= m;
+  if (u < 0) u += m;
 
   return u;
 }
 
-template<typename T>
-constexpr T inverse(T a){
+template <typename T>
+constexpr T inverse(T a) {
   return inverse(a, mod);
 }
 
-#include<iostream>
-int main(){std::cout<<5*inverse(5)%mod<<std::endl;}
+#include <iostream>
+int main() {
+  constexpr long long a = inverse(5ll);
+  std::cout << 5 * a % mod << std::endl;
+}
 

@@ -1,21 +1,24 @@
-#include<vector>
+#include <vector>
 
-struct UnionFind{
+class UnionFind {
 private:
-  std::vector<int> data;
+  int* data;
 
 public:
-  UnionFind(int n = 0) : data(n, -1){}
+  UnionFind(int n = 0) {
+    data = new int[n];
+    for (int i = 0; i < n; i++) data[i] = -1;
+  }
 
-  int find(int x){
+  int find(int x) {
     return data[x] < 0 ? x : data[x] = find(data[x]);
   }
 
-  bool unite(int x, int y){
+  bool unite(int x, int y) {
     x = find(x); y = find(y);
 
-    if(x == y) return false;
-    else{
+    if (x == y) return false;
+    else {
       if(data[x] > data[y]) std::swap(x, y);
       data[x] += data[y];
       data[y] = x;
@@ -23,13 +26,19 @@ public:
     }
   }
 
-  bool is_same(int x, int y){
+  bool is_same(int x, int y) {
     return find(x) == find(y);
   }
 
-  int size(int x){
+  int size(int x) {
     return -data[find(x)];
+  }
+
+  ~UnionFind() {
+    delete [] data;
   }
 };
 
-int main(){}
+int main() {
+  UnionFind uf(10);
+}
