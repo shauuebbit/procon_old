@@ -11,8 +11,8 @@ public:
   }
 
   bool add(int index, T x = 1) {
-    if (index < 0 || n < index) return false;
-    for (;index <= n; index += index & -index) {
+    if (index < 0 || n <= index) return false;
+    for (index++; index <= n; index += index & -index) {
       data[index] += x;
     }
     return true;
@@ -20,10 +20,10 @@ public:
 
   T sum(int index) {
     if (index < 0) index = 0;
-    else if (index > n) index = n;
+    else if (index >= n) index = n - 1;
 
     T x = 0;
-    for (;index; index -= index & -index) {
+    for (index++; index; index -= index & -index) {
       x += data[index];
     }
     return x;
@@ -42,7 +42,7 @@ public:
       }
       b >>= 1;
     }
-    return index + 1;
+    return index;
   }
 
   ~BinaryIndexedTree() {
