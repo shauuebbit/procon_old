@@ -25,8 +25,7 @@ T dinic(int src, int dst, std::vector<std::vector<Edge<T>>> graph) {
       for (Edge<T>& e : graph[node]) {
         if (e.capacity <= 0 || dist[e.to] >= 0) continue;
 
-        dist[e.to] = dist[node] + 1;
-        q.push(e.to);
+        dist[e.to] = dist[node] + 1; q.push(e.to);
       }
     }
 
