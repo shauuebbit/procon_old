@@ -16,6 +16,7 @@ T dinic(int src, int dst, std::vector<std::vector<Edge<T>>> graph) {
   auto bfs = [&]() {
     dist.assign(graph.size(), -1);
     std::queue<int> q;
+    dist[src] = 0; q.push(src);
 
     while (q.size()) {
       int node = q.front();
