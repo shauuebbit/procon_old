@@ -6,29 +6,32 @@ private:
   M* data;
   F op;
   M e;
-  int length;
+  int sz;
 
 public:
-  SegmentTree(int n, const F op, const M& e) : op(op), e(e) {
-    length = 1;
-    while (length < n) length <<= 1;
-    data = new M[length << 1];
-    for (int i = 0; i < (length << 1); i++) data[i] = e;
+  SegmentTree(int sz, const F op, const M& e) : op(op), e(e), sz(sz) {
+    data = new M[sz << 1];
+    for (int i = 0; i < (sz << 1); i++) data[i] = e;
   }
 
-  void update(int index, const M& x) {
-    index += length;
+  bool update(int index, const M& x) {
+    if (index < 0 || index >= sz) return false;
+    index += sz;
     data[index] = x;
 
     while (index >>= 1) {
       data[index] = op(data[index << 1], data[(index << 1) | 1]);
     }
+
+    return true;
   }
 
   M query(int left, int right) {
+    if (left < 0) left = 0;
+    if (right > sz) right = sz;
     M l = e, r = e;
 
-    for (left += length, right += length; left < right; left >>= 1, right >>= 1) {
+    for (left += sz, right += sz; left < right; left >>= 1, right >>= 1) {
       if (left & 1) l = op(l, data[left++]);
       if (right & 1) r = op(data[--right], r);
     }
