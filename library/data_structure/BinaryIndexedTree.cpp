@@ -46,7 +46,7 @@ public:
   }
 
   ~BinaryIndexedTree() {
-    delete [] data;
+    delete[] data;
   }
 };
 

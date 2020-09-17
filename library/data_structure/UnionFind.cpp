@@ -35,7 +35,7 @@ public:
   }
 
   ~UnionFind() {
-    delete [] data;
+    delete[] data;
   }
 };
 

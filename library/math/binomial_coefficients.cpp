@@ -29,9 +29,9 @@ public:
   }
 
   ~BinomialCoefficients() {
-    delete [] factorial;
-    delete [] factorial_inverse;
-    delete [] inverse;
+    delete[] factorial;
+    delete[] factorial_inverse;
+    delete[] inverse;
   }
 };
 
