@@ -9,7 +9,7 @@ private:
   int sz;
 
 public:
-  SegmentTree(int sz, const F op, const M& e) : op(op), e(e), sz(sz) {
+  SegmentTree(int sz, const F& op, const M& e) : op(op), e(e), sz(sz) {
     data = new M[sz << 1];
     for (int i = 0; i < (sz << 1); i++) data[i] = e;
   }
