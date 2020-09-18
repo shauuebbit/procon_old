@@ -56,7 +56,7 @@ public:
     }
 
     recalc(left);
-    recalc(right);
+    recalc(right - 1);
   }
 
   M query(int left, int right) {
