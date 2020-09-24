@@ -9,14 +9,12 @@ private:
   std::vector<T> unzip;
 
 public:
-  Compressor(std::vector<T> v) {
-    std::sort(v.begin(), v.end());
-    v.erase(std::unique(v.begin(), v.end()), v.end());
+  Compressor(std::vector<T>& org) : unzip(org) {
+    std::sort(unzip.begin(), unzip.end());
+    unzip.erase(std::unique(unzip.begin(), unzip.end()), unzip.end());
 
-    unzip = std::vector<int>(v.size());
-    for (int i = 0; i < (int)v.size(); i++) {
-      zip[v[i]] = i;
-      unzip[i] = v[i];
+    for (int i = 0; i < (int)unzip.size(); i++) {
+      zip[unzip[i]] = i;
     }
   }
 
@@ -38,6 +36,10 @@ int main() {
   Compressor<int> cmp(v);
 
   cout << cmp.compress(2) << ' ' << cmp.uncompress(2) << endl;
+  for (int d : v) {
+    cout << d << ' ';
+  }
+  cout << endl;
 
   return 0;
 }
