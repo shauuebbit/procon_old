@@ -41,7 +41,8 @@ public:
   }
 
   constexpr ModInt& operator*=(const ModInt& rhs) {
-    (number *= rhs.number) %= mod;
+    number *= rhs.number;
+    if (number >= mod) number %= mod;
     return *this;
   }
 
