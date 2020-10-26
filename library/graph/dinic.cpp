@@ -30,8 +30,7 @@ public:
       dist[src] = 0; q.push(src);
 
       while (q.size()) {
-        int node = q.front();
-        q.pop();
+        int node = q.front(); q.pop();
 
         for (Edge& e : graph[node]) {
           if (e.capacity <= 0 || dist[e.to] >= 0) continue;
@@ -46,9 +45,9 @@ public:
     auto dfs = [&](auto this_function, int node, T current_flow) {
       if(node == dst) return current_flow;
 
-      for (int &next = idx[node]; next < (int)graph.size(); ++next) {
+      for (int &next = idx[node]; next < (int)graph[node].size(); ++next) {
         Edge& e = graph[node][next];
-        if (e.capacity <= 0 || dist[next] <= dist[node]) continue;
+        if (e.capacity <= 0 || dist[e.to] <= dist[node]) continue;
 
         T ret = this_function(this_function, e.to, std::min(current_flow, e.capacity));
 
@@ -75,19 +74,16 @@ public:
 
   std::vector<bool> min_cut(int src) {
     std::vector<bool> ret(graph.size(), false);
-    std::queue<int> q;
-    q.push(src);
+    std::queue<int> q; q.push(src);
 
     while (q.size()) {
-      int node = q.front();
-      q.pop();
+      int node = q.front(); q.pop();
       ret[node] = true;
 
       for (Edge& e : graph[node]) {
         if (e.capacity == 0 || ret[e.to]) continue;
 
-        ret[e.to] = true;
-        q.push(e.to);
+        ret[e.to] = true; q.push(e.to);
       }
     }
 
