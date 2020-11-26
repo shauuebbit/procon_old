@@ -1,6 +1,6 @@
 #include <iostream>
 
-template <long long mod = 1000000007>
+template <long long mod>
 class ModInt {
 private:
   long long number;
