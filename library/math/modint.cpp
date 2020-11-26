@@ -1,18 +1,21 @@
 #include <iostream>
 
+template <long long mod = 1000000007>
 class ModInt {
 private:
   long long number;
 
 public:
-  static constexpr long long mod = 1000000007;
-
   constexpr ModInt(const ModInt& x) : number(x.number) {};
 
   constexpr ModInt(const long long number = 0) : number((mod + number) % mod) {}
 
   constexpr long long get() const {
     return number;
+  }
+
+  constexpr long long getMod() const {
+    return mod;
   }
 
   constexpr ModInt& operator=(const ModInt& rhs) & {
@@ -87,45 +90,52 @@ public:
   }
 };
 
-constexpr ModInt operator+(const ModInt& lhs, const ModInt& rhs) {
-  return ModInt(lhs) += rhs;
+template <long long mod>
+constexpr ModInt<mod> operator+(const ModInt<mod>& lhs, const ModInt<mod>& rhs) {
+  return ModInt<mod>(lhs) += rhs;
 }
 
-constexpr ModInt operator-(const ModInt& lhs, const ModInt& rhs) {
-  return ModInt(lhs) -= rhs;
+template <long long mod>
+constexpr ModInt<mod> operator-(const ModInt<mod>& lhs, const ModInt<mod>& rhs) {
+  return ModInt<mod>(lhs) -= rhs;
 }
 
-constexpr ModInt operator*(const ModInt& lhs, const ModInt& rhs) {
-  return ModInt(lhs) *= rhs;
+template <long long mod>
+constexpr ModInt<mod> operator*(const ModInt<mod>& lhs, const ModInt<mod>& rhs) {
+  return ModInt<mod>(lhs) *= rhs;
 }
 
-constexpr ModInt operator/(const ModInt& lhs, const ModInt&rhs) {
-  return ModInt(lhs) /= rhs;
+template <long long mod>
+constexpr ModInt<mod> operator/(const ModInt<mod>& lhs, const ModInt<mod>& rhs) {
+  return ModInt<mod>(lhs) /= rhs;
 }
 
-constexpr ModInt operator^(const ModInt& lhs, const long long& rhs) {
-  long long b = lhs.get(), e = rhs, y = 1, mod = lhs.mod;
+template <long long mod>
+constexpr ModInt<mod> operator^(const ModInt<mod>& lhs, const long long& rhs) {
+  long long b = lhs.get(), e = rhs, y = 1, m = lhs.getMod();
   bool inv = e < 0;
   if (inv) e = -e;
 
   while (e) {
-    if(e & 1) (y *= b) %= mod;
+    if(e & 1) (y *= b) %= m;
 
-    (b *= b) %= mod;
+    (b *= b) %= m;
     e >>= 1;
   }
 
-  return (inv ? ModInt(y).inverse() : ModInt(y));
+  return (inv ? ModInt<mod>(y).inverse() : ModInt<mod>(y));
 }
 
-std::istream& operator>>(std::istream& is, ModInt& x) {
+template <long long mod>
+std::istream& operator>>(std::istream& is, ModInt<mod>& x) {
   long long in;
   is >> in;
   x = in;
   return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const ModInt& x) {
+template <long long mod>
+std::ostream& operator<<(std::ostream& os, const ModInt<mod>& x) {
   os << x.get();
   return os;
 }
@@ -134,8 +144,8 @@ std::ostream& operator<<(std::ostream& os, const ModInt& x) {
 using namespace std;
 
 int main() {
-  ModInt a(6);
-  ModInt b;
+  ModInt<1000000007> a(6);
+  ModInt<1000000007> b;
   cin >> b;
   cout << "a = " << a << ", -a = " << -a << endl;
   cout << "b = " << b << ", b^(-1) = " << b.inverse() << endl;
