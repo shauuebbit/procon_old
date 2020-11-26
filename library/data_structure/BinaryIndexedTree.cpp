@@ -12,7 +12,7 @@ public:
 
   bool add(int index, T x = 1) {
     if (index < 0 || n <= index) return false;
-    for (index++; index <= n; index += index & -index) {
+    for (++index; index <= n; index += index & -index) {
       data[index] += x;
     }
     return true;
@@ -23,7 +23,7 @@ public:
     else if (index >= n) index = n - 1;
 
     T x = 0;
-    for (index++; index; index -= index & -index) {
+    for (++index; index; index -= index & -index) {
       x += data[index];
     }
     return x;
