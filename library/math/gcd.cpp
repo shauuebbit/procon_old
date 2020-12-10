@@ -13,6 +13,11 @@ constexpr T gcd(T a, U b) {
   return a;
 }
 
+template <typename T, typename U>
+constexpr T lcm(T a, U b) {
+  return a * b / gcd(a, b);
+}
+
 #include <iostream>
 int main() {
   std::cout << gcd(12, 18) << std::endl;
