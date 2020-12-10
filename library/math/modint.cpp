@@ -8,7 +8,9 @@ private:
 public:
   constexpr ModInt(const ModInt& x) : number(x.number) {}
 
-  constexpr ModInt(const long long number = 0) : number((mod + number) % mod) {}
+  constexpr ModInt(const long long number = 0) : number(number) {
+    if (number < 0 || number >= mod) this->number %= mod;
+  }
 
   constexpr long long get() const { return number; }
 
@@ -117,16 +119,17 @@ std::ostream& operator<<(std::ostream& os, const ModInt<mod>& x) {
 using namespace std;
 
 int main() {
-  ModInt<1000000007> a(6);
-  ModInt<1000000007> b;
+  using mint = ModInt<1000000007>;
+  mint a(6);
+  mint b;
   cin >> b;
   cout << "a + 5 = " << a + 5 << endl;
   cout << "a = " << a << ", -a = " << -a << endl;
   cout << "b = " << b << ", b^(-1) = " << b.inverse() << endl;
-  cout << "a + b = " << (a + b) << endl;
-  cout << "a - b = " << (a - b) << endl;
-  cout << "a * b = " << (a * b) << endl;
-  cout << "a / b = " << (a / b) << endl;
+  cout << "a + b = " << a + b << endl;
+  cout << "a - b = " << a - b << endl;
+  cout << "a * b = " << a * b << endl;
+  cout << "a / b = " << a / b << endl;
   cout << "a ^ b = " << (a ^ 3) << endl;
   cout << "a++: " << a++ << ", ++a: " << ++a << endl;
   cout << "--b: " << --b << endl;
