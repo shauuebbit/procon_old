@@ -6,9 +6,8 @@ constexpr T gcd(T a, U b) {
   
   T r;
   while (b) {
-    r = a % b;
-    a = b;
-    b = r;
+    a %= b;
+    b ^= a; a ^= b; b ^= a;
   }
 
   return a;
