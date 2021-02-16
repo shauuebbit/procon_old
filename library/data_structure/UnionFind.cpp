@@ -1,5 +1,3 @@
-#include <vector>
-
 class UnionFind {
 private:
   int* data;
