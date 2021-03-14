@@ -1,6 +1,6 @@
 #include <utility>
 
-constexpr int mod = 1000000007;
+constexpr int MOD = 1000000007;
 
 template <typename T, typename U>
 constexpr T inverse(T a, U m) {
@@ -22,12 +22,12 @@ constexpr T inverse(T a, U m) {
 
 template <typename T>
 constexpr T inverse(T a) {
-  return inverse(a, mod);
+  return inverse(a, MOD);
 }
 
 #include <iostream>
 int main() {
   constexpr long long a = inverse(5ll);
-  std::cout << 5 * a % mod << std::endl;
+  std::cout << 5 * a % MOD << std::endl;
 }
 
