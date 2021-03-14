@@ -1,4 +1,4 @@
-constexpr int mod = 1000000007;
+constexpr int MOD = 998244343;
 
 template <typename T, typename U, typename V>
 constexpr T power(T b, U e, V mod) {
@@ -19,7 +19,7 @@ constexpr T power(T b, U e, V mod) {
 
 template <typename T, typename U>
 constexpr T power(T b, U e) {
-  return power(b, e, mod);
+  return power(b, e, MOD);
 }
 
 
