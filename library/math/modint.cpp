@@ -10,6 +10,7 @@ public:
 
   constexpr ModInt(const long long number = 0) : number(number) {
     if (number < 0 || number >= mod) this->number %= mod;
+    if (this->number < 0) this->number += mod;
   }
 
   constexpr long long get() const { return number; }
