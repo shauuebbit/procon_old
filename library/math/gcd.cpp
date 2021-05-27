@@ -1,21 +1,15 @@
 template <typename T, typename U>
 constexpr T gcd(T a, U b) {
-  if (a < b) {
-    a ^= b; b ^= a; a ^= b;
-  }
-  
-  T r;
   while (b) {
     a %= b;
     b ^= a; a ^= b; b ^= a;
   }
-
   return a;
 }
 
 template <typename T, typename U>
 constexpr T lcm(T a, U b) {
-  return a * b / gcd(a, b);
+  return a / gcd(a, b) * b;
 }
 
 #include <iostream>
