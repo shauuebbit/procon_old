@@ -9,7 +9,7 @@ private:
   std::vector<T> unzip;
 
 public:
-  Compressor(std::vector<T>& org) : unzip(org) {
+  Compressor(const std::vector<T>& org) : unzip(org) {
     std::sort(unzip.begin(), unzip.end());
     unzip.erase(std::unique(unzip.begin(), unzip.end()), unzip.end());
 
