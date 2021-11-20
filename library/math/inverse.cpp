@@ -2,6 +2,7 @@ constexpr int MOD = 1000000007;
 
 template <typename T, typename U>
 constexpr T inverse(T a, U m) {
+  if (a >= m) a %= m;
   T b = (T)m, u = 0, v = 1;
 
   while (a) {
