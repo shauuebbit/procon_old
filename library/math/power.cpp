@@ -2,7 +2,7 @@ constexpr int MOD = 998244353;
 
 template <typename T, typename U, typename V>
 constexpr T power(T b, U e, V mod) {
-  b %= mod;
+  if (b >= mod) b %= mod;
   T ret = 1;
   while (e) {
     if (e & 1) {
